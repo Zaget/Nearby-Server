@@ -16,7 +16,8 @@
     "test": "jest",
     "test:watch": "jest --watch",
     "test:coverage": "jest --coverage",
-    "docker": "npm run build:prod && npm run seed && npm start"
+    "docker": "npm run build:prod && npm run seed && npm start",
+    "populate": "node ./populateData"
   },
   "dependencies": {
     "babel-core": "^6.26.0",
@@ -40,7 +41,8 @@
     "react-bootstrap": "^0.32.1",
     "react-dom": "^16.3.1",
     "react-test-renderer": "^16.3.2",
-    "style-loader": "^0.20.3"
+    "style-loader": "^0.20.3",
+    "underscore": "^1.9.0"
   },
   "devDependencies": {
     "webpack": "^3.11.0",
