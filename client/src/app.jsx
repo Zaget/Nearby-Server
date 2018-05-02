@@ -11,7 +11,9 @@ class App extends React.Component {
     this.state = {
       currentRestaurant: {},
       nearbyRestaurants: [],
-      checkID: true
+      checkID: true,
+      id:document.URL.split('/')[4],
+      host:document.URL.split(':')[1]
     }
 	}
 
@@ -21,14 +23,14 @@ class App extends React.Component {
 
   _getData() {
     // console.log('window location.href: ', window.location.href);
-
-    var id = window.location.href.split('/')[4];
+    
+    // var id = window.location.href.split('/')[4];
     // console.log('getting recommended restaurants for id: ' + id)
 
     //error handling if id is included in URL
-    if (window.location.href.split('/')[4] !== undefined) {
+    if (this.state.id !== undefined) {
       $.ajax({
-        url: `http://13.56.114.101:3004/api/restaurants/${id}/nearby`,
+        url: `http:${this.state.host}:3004/api/restaurants/${this.state.id}/nearby`,
         method: "GET",
         success: (data) => {
           this.setState({

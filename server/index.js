@@ -35,11 +35,12 @@ app.get('/restaurants/:id', function(req, res) {
 });
 
 app.get('/api/restaurants/:id/nearby', function(req, res) {
-	var placeId = req.params.id;
+	var placeId = parseInt(req.params.id);
   console.log("GET " + req.url); 
 
   // find recommended restaurants based on id
   var results = [];
+  console.log(typeof placeId);
   db.findOne(placeId, (err, data) => {
     if (err) {
       res.status(500);
