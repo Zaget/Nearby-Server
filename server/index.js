@@ -46,9 +46,7 @@ app.get('/api/restaurants/:id/nearby', function(req, res) {
       res.status(500);
       console.log(err);
     } else {
-      // console.log("restaurant info: ", data);
       var nearbyArr = data[0].nearby;
-      console.log('Nearby Arr: ', nearbyArr);
       results.push(data[0]);
       db.findMany(nearbyArr, (err, data)=> {
         if(err) {

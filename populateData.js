@@ -53,22 +53,17 @@ const generateEntry = (i) => {
 const generateData = (numEnt, writer, encoding, callback) => {
   numEntries = numEnt;
   let i = numEntries;
+  writer.write('[', encoding);
   function write() {
     let ok = true;
     do {
       i -= 1;
       let stringData = JSON.stringify(generateEntry(i));
-      if (i === numEntries - 1) {
-        stringData = `[${stringData}`;
-      }
-      if (i !== 0) {
-        stringData += ',';
-      }
       if (i === 0) {
         stringData += ']';
         writer.write(stringData, encoding, callback);
       } else {
-        ok = writer.write(stringData, encoding);
+        ok = writer.write(`${stringData},`, encoding);
       }
     } while (i > 0 && ok);
     if (i > 0) {
@@ -80,8 +75,3 @@ const generateData = (numEnt, writer, encoding, callback) => {
 
 module.exports.generateData = generateData;
 module.exports.generateEntry = generateEntry;
-module.exports.generateNearby = generateNearby;
-module.exports.generatePhotos = generatePhotos;
-module.exports.generateRandomInt = generateRandomInt;
-module.exports.randomNum = randomNum;
-module.exports.round = round;
