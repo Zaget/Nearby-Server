@@ -10,20 +10,23 @@
   "scripts": {
     "start": "node ./server/index.js",
     "server": "nodemon ./server/index.js",
-    "seed": "node ./seed.js",
+    "seed": "mongoimport -d apateez-nearby -c restaurants --jsonArray --file generatedData2.json --numInsertionWorkers 32",
     "build": "webpack -d --watch",
     "build:prod": "webpack -p",
-    "test": "jest",
+    "test": "jest ./tests",
     "test:watch": "jest --watch",
     "test:coverage": "jest --coverage",
     "docker": "npm run build:prod && npm run seed && npm start",
-    "populate": "node ./populateData"
+    "generate": "node ./populate",
+    "populate": "time npm run generate && time npm run seed"
   },
   "dependencies": {
     "babel-core": "^6.26.0",
+    "babel-env": "^2.4.1",
     "babel-jest": "^22.4.3",
     "babel-loader": "^7.1.4",
     "babel-polyfill": "^6.26.0",
+    "babel-preset-env": "^1.6.1",
     "babel-preset-es2015": "^6.24.1",
     "babel-preset-react": "^6.24.1",
     "body-parser": "^1.18.2",
@@ -45,6 +48,12 @@
     "underscore": "^1.9.0"
   },
   "devDependencies": {
+    "eslint": "^4.19.1",
+    "eslint-config-airbnb": "^16.1.0",
+    "eslint-plugin-import": "^2.11.0",
+    "eslint-plugin-jest": "^21.15.1",
+    "eslint-plugin-jsx-a11y": "^6.0.3",
+    "eslint-plugin-react": "^7.7.0",
     "webpack": "^3.11.0",
     "webpack-cli": "^2.0.14"
   },
