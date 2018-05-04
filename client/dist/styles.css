@@ -190,6 +190,12 @@
   padding-bottom: 50px;
 }
 
+.carouselImage {
+  object-fit: cover;
+  width: 215px;
+  height: 215px;
+}
+
 .restaurant-footer-logo {
   background-color: white;
   height: 50px;
