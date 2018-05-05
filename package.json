@@ -10,15 +10,17 @@
   "scripts": {
     "start": "node ./server/index.js",
     "server": "nodemon ./server/index.js",
-    "seed": "mongoimport -d apateez-nearby -c restaurants --jsonArray --file generatedData2.json --numInsertionWorkers 32",
+    "seedMONGO": "mongoimport -d apateez-nearby -c restaurants --jsonArray --file generatedData2.json --numInsertionWorkers 32",
     "build": "webpack -d --watch",
     "build:prod": "webpack -p",
     "test": "jest ./tests",
     "test:watch": "jest --watch",
     "test:coverage": "jest --coverage",
     "docker": "npm run build:prod && npm run seed && npm start",
-    "generate": "node ./populate",
-    "populate": "time npm run generate && time npm run seed"
+    "generateJSON": "node ./populateJSON",
+    "generateNearby": "node ./populateRestaurantsCSV",
+    "generateRestaurants": "node ./populateNearbyCSV",
+    "populateMONGO": "time npm run generateJSON && time npm run seedMONGO"
   },
   "dependencies": {
     "babel-core": "^6.26.0",

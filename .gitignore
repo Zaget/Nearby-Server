@@ -1,7 +1,8 @@
 node_modules
 generatedData.json
-generatedData1.json
+generatedData*
 package-lock.json
 client/dist/bundle.js
-generatedData2.json
 yarn.lock
+*.csv
+coverage/

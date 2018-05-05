@@ -2,8 +2,6 @@ const faker = require('faker');
 
 const _ = require('underscore');
 
-let numEntries;
-
 const round = (number, precision) => {
   const factor = 10 ** precision;
   return Math.round(number * factor) / factor;
@@ -22,20 +20,27 @@ const generatePhotos = () => {
   return photosArr;
 };
 
-const generateNearby = () => {
+const generateNearby = (numEnt) => {
   let nearbyArr = [];
-  for (let i = 0; i < 10; i += 1) {
-    const randomIndex = generateRandomInt(1, numEntries);
+  for (let i = 0; i < 15; i += 1) {
+    const randomIndex = generateRandomInt(1, numEnt);
     nearbyArr.push(randomIndex);
   }
   nearbyArr = _.uniq(nearbyArr);
+  if (nearbyArr.length < 6) {
+    for (let i = 0; i < 15; i += 1) {
+      const randomIndex = generateRandomInt(1, numEnt);
+      nearbyArr.push(randomIndex);
+    }
+    nearbyArr = _.uniq(nearbyArr);
+  }
   nearbyArr = nearbyArr.slice(0, 6);
   return nearbyArr;
 };
 
-const generateEntry = (i) => {
+const generateEntry = (i, numEnt) => {
   const photosArr = generatePhotos();
-  const nearby = generateNearby();
+  const nearby = generateNearby(numEnt);
   const business = {
     place_id: i,
     name: faker.fake('{{name.lastName}}'),
@@ -50,15 +55,29 @@ const generateEntry = (i) => {
   return business;
 };
 
-const generateData = (numEnt, writer, encoding, callback) => {
-  numEntries = numEnt;
-  let i = numEntries;
+const generateRestaurantEntry = (i) => {
+  const photosArr = generatePhotos();
+  const business = {
+    place_id: i,
+    name: faker.fake('{{name.lastName}}'),
+    google_rating: round(randomNum(0, 5), 1),
+    zagat_rating: round(randomNum(0, 5), 1),
+    photos: photosArr,
+    neighborhood: faker.fake('{{address.city}}'),
+    price_level: round(randomNum(1, 4), 0),
+    types: faker.fake('{{name.lastName}}'),
+  };
+  return business;
+};
+
+const generateDataJSON = (numEnt, writer, encoding, callback) => {
+  let i = numEnt;
   writer.write('[', encoding);
   function write() {
     let ok = true;
     do {
       i -= 1;
-      let stringData = JSON.stringify(generateEntry(i));
+      let stringData = JSON.stringify(generateEntry(i, numEnt));
       if (i === 0) {
         stringData += ']';
         writer.write(stringData, encoding, callback);
@@ -73,5 +92,49 @@ const generateData = (numEnt, writer, encoding, callback) => {
   write();
 };
 
-module.exports.generateData = generateData;
+const generateRestaurantsCSV = (numEnt, writer, encoding, callback) => {
+  let i = numEnt;
+  function write() {
+    let ok = true;
+    do {
+      i -= 1;
+      const restaurant = generateRestaurantEntry(i);
+      const line = `${restaurant.place_id},${restaurant.name},${restaurant.google_rating},${restaurant.zagat_rating},"[${(restaurant.photos)}]",${restaurant.neighborhood},${restaurant.price_level},${restaurant.types}\n`;
+      if (i === 0) {
+        writer.write(line, encoding, callback);
+      } else {
+        ok = writer.write(line, encoding);
+      }
+    } while (i > 0 && ok);
+    if (i > 0) {
+      writer.once('drain', write);
+    }
+  }
+  write();
+};
+
+const generateNearbyCSV = (numEnt, writer, encoding, callback) => {
+  let i = numEnt;
+  function write() {
+    let ok = true;
+    do {
+      i -= 1;
+      const nearby = generateNearby(numEnt);
+      const line = `${i},${nearby[0]},${nearby[1]},${nearby[2]},${nearby[3]},${nearby[4]},${nearby[5]}\n`;
+      if (i === 0) {
+        writer.write(line, encoding, callback);
+      } else {
+        ok = writer.write(line, encoding);
+      }
+    } while (i > 0 && ok);
+    if (i > 0) {
+      writer.once('drain', write);
+    }
+  }
+  write();
+};
+
+module.exports.generateDataJSON = generateDataJSON;
+module.exports.generateNearbyCSV = generateNearbyCSV;
+module.exports.generateRestaurantsCSV = generateRestaurantsCSV;
 module.exports.generateEntry = generateEntry;
