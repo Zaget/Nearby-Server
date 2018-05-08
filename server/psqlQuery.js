@@ -8,12 +8,18 @@ const psqlQuery = (req, res) => {
     if (err) {
       res.status(500);
       console.log(err);
-    }
-    const nearby = [];
-    for (let i = 1; i < 7; i += 1) {
-      nearby.push(data.rows[i]);
-    }
-    res.send([data.rows[0], nearby]);
+    } else {
+      const nearby = [];
+      let current;
+      for (let i = 0; i < 7; i += 1) {
+        if (data.rows[i].place_id === placeId) {
+          current = data.rows[i];
+        } else {
+          nearby.push(data.rows[i]);
+        }
+      }
+      res.send([current, nearby]);
+    } 
   });
 };
 

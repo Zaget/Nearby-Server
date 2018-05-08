@@ -1,8 +1,8 @@
 const express = require('express');
 const bodyParser = require('body-parser');
 const path = require('path');
-// const query = require('./psqlQuery.js');
-const query = require('./mongoQuery.js');
+const query = require('./psqlQuery.js');
+// const query = require('./mongoQuery.js');
 
 const app = express();
 
@@ -20,7 +20,6 @@ app.get('/restaurants/:id', (req, res) => {
   res.sendFile(path.join(__dirname, '../client/dist/index.html'));
 });
 
-
 app.get('/api/restaurants/:id/nearby', query);
 
-app.listen(3004, () => { console.log('Apateez app listening on port 3004!'); });
+module.exports = app;
