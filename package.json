@@ -7,11 +7,21 @@
   "engines": {
     "node": ">=6.13.0"
   },
+  "babel": {
+    "presets": [
+      "env",
+      "react",
+      "es2015"
+    ],
+    "plugins": [
+      "transform-object-rest-spread"
+    ]
+  },
   "scripts": {
-    "start": "node ./server/index.js",
+    "start": "node ./server/src/app.js",
     "server": "nodemon ./server/index.js",
     "seedMONGO": "mongoimport -d apateez-nearby -c restaurants --jsonArray --file generatedData2.json --numInsertionWorkers 32",
-    "build": "webpack -d --watch",
+    "build": "webpack -w",
     "build:prod": "webpack -p",
     "test": "jest ./tests",
     "test:watch": "jest --watch",
@@ -23,6 +33,8 @@
     "populateMONGO": "time npm run generateJSON && time npm run seedMONGO"
   },
   "dependencies": {
+    "@newrelic/native-metrics": "^2.4.0",
+    "artillery": "^1.6.0-15",
     "babel-core": "^6.26.0",
     "babel-env": "^2.4.1",
     "babel-jest": "^22.4.3",
@@ -41,6 +53,8 @@
     "jest": "^22.4.3",
     "jquery": "^3.3.1",
     "mongoose": "^5.0.15",
+    "newrelic": "^4.1.0",
+    "node": "^10.0.0",
     "path": "^0.12.7",
     "pg": "^7.4.3",
     "react": "^16.3.1",
@@ -48,7 +62,9 @@
     "react-dom": "^16.3.1",
     "react-test-renderer": "^16.3.2",
     "style-loader": "^0.20.3",
-    "underscore": "^1.9.0"
+    "umd": "^3.0.3",
+    "underscore": "^1.9.0",
+    "webpack-node-externals": "^1.7.2"
   },
   "devDependencies": {
     "eslint": "^4.19.1",
@@ -57,8 +73,11 @@
     "eslint-plugin-jest": "^21.15.1",
     "eslint-plugin-jsx-a11y": "^6.0.3",
     "eslint-plugin-react": "^7.7.0",
-    "webpack": "^3.11.0",
-    "webpack-cli": "^2.0.14"
+    "extract-text-webpack-plugin": "^2.1.2",
+    "mini-css-extract-plugin": "^0.4.0",
+    "supertest": "^3.0.0",
+    "webpack": "^3.12.0",
+    "webpack-cli": "^2.1.3"
   },
   "jest": {
     "setupTestFrameworkScriptFile": "<rootDir>/client/src/components/TestSetup.js"

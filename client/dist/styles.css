@@ -193,6 +193,7 @@
 .carouselImage {
   object-fit: cover;
   width: 215px;
+  min-width: 215px;
   height: 215px;
 }
 
@@ -203,5 +204,3 @@
   padding-right: 20px;
   background-clip: content-box;
 }
-
-
