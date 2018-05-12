@@ -33,6 +33,7 @@ class App extends React.Component {
         url: `http:${this.state.host}:3004/api/restaurants/${this.state.id}/nearby`,
         method: "GET",
         success: (data) => {
+          console.log(data);
           this.setState({
             currentRestaurant: data[0],
             nearbyRestaurants: data[1],
