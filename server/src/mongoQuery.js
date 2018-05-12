@@ -10,6 +10,7 @@ mongoose.connection.on('error', (err) => {
 });
 
 const mongoQuery = (req, res) => {
+  console.log('using mongo')
   const placeId = parseInt(req.params.id, 10);
   const results = [];
   db.findOne(placeId, (err, data) => {
