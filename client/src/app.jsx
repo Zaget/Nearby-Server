@@ -24,7 +24,7 @@ class App extends React.Component {
   _getData() {
     if (this.state.id !== undefined) {
       $.ajax({
-        url: `http://13.57.205.164:3004/api/restaurants/${this.state.id}/nearby`,
+        url: `http://localhost:3004/api/restaurants/${this.state.id}/nearby`,
         method: 'GET',
         success: (data) => {
           this.setState({
