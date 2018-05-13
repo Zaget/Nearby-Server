@@ -1,6 +1,6 @@
 const { Pool } = require('pg');
 
-const client = new Pool({ database: 'zaget', host: 'arn:aws:rds:us-west-1:350976328477', user: 'dmytromarchenko1998', password: 'Tiger101998!' });
+const client = new Pool({ database: 'zaget', host: 'arn:aws:rds:us-west-1:350976328477:db:zaget', user: 'dmytromarchenko1998', password: 'Tiger101998!' });
 
 const psqlQuery = (req, res) => {
   const placeId = parseInt(req.params.id, 10);
