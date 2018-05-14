@@ -28,8 +28,8 @@
     "test:coverage": "jest --coverage",
     "docker": "npm run build:prod && npm run seed && npm start",
     "generateJSON": "node ./populateJSON",
-    "generateNearby": "node ./populateRestaurantsCSV",
-    "generateRestaurants": "node ./populateNearbyCSV",
+    "generateRestaurants": "node ./populateRestaurantsCSV",
+    "generateNearby": "node ./populateNearbyCSV",
     "populateMONGO": "time npm run generateJSON && time npm run seedMONGO"
   },
   "dependencies": {

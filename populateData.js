@@ -126,7 +126,7 @@ const generateNearbyCSV = (numEnt, writer, encoding, callback) => {
       } else {
         ok = writer.write(line, encoding);
       }
-    } while (i > 0 && ok);
+    } while (i > numEnt - 1000000 && ok);
     if (i > 0) {
       writer.once('drain', write);
     }
