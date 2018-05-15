@@ -18,7 +18,6 @@ const psqlQuery = (req, res) => {
           nearby.push(data.rows[i]);
         }
       }
-      res.send([current, nearby]);
       res.send([data.rows[0],[data.rows[0],data.rows[0],data.rows[0],data.rows[0],data.rows[0],data.rows[0]]])
     }
   });
