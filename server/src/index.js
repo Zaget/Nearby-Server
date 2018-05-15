@@ -17,6 +17,10 @@ app.use((req, res, next) => {
   next();
 });
 
+app.get('/loaderio-e5decec6f900b7fd867ad6eaaa03b82d/', (req, res) => {
+  res.send('loaderio-e5decec6f900b7fd867ad6eaaa03b82d');
+})
+
 app.use('/restaurants', express.static(path.join(__dirname, '/../../client/dist')));
 
 app.get('/api/restaurants/:id/nearby', query);
