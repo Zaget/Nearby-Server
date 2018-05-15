@@ -4,6 +4,6 @@ import App from '../src/app.jsx';
 
 export default App;
 
-// if (typeof window !== 'undefined') {
-//   hydrate(React.createElement(App), document.getElementById('nearby-app'));
-// }
+if (typeof window !== 'undefined') {
+  hydrate(React.createElement(App), document.getElementById('nearby-app'));
+}
