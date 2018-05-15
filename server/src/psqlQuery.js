@@ -7,6 +7,7 @@ const psqlQuery = (req, res) => {
   client.query(`select * from nearby inner join businesses on ${placeId} = businesses.place_id or nearby.nearby1 = businesses.place_id or nearby.nearby2 = businesses.place_id or nearby.nearby3 = businesses.place_id or nearby.nearby4 = businesses.place_id or nearby.nearby5 = businesses.place_id or nearby.nearby6 = businesses.place_id where nearby.place_id = ${placeId}`, (err, data) => {
     if (err) {
       res.status(500);
+      res.send('not a valid id');
       console.log(err);
     } else {
       const nearby = [];
