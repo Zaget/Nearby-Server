@@ -8,10 +8,10 @@ class App extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      currentRestaurant: this.props.currentRestaurant,
-      nearbyRestaurants: this.props.nearbyRestaurants,
+      currentRestaurant: {},
+      nearbyRestaurants: [],
       checkID: true,
-      id: this.props.id,
+      id: undefined,
     };
   }
 
