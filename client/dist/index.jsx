@@ -11,5 +11,4 @@ if (typeof window !== 'undefined') {
     let info = {currentRestaurant:data[0], nearbyRestaurants:data[1], id:req.params.id}
     hydrate(React.createElement(App, info), document.getElementById('nearby-app'));
   }
-  // hydrate(React.createElement(App), document.getElementById('nearby-app'));
 }
