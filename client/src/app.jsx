@@ -22,7 +22,7 @@ class App extends React.Component {
   }
 
   _getData() {
-    if (this.state.id !== undefined) {
+    if ((this.state.id !== undefined) && (this.state.nearbyRestaurants.length === 0)) {
       $.ajax({
         url: `http://13.57.205.164:3004/api/restaurants/${this.state.id}/nearby`,
         method: 'GET',
