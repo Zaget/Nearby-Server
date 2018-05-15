@@ -8,10 +8,10 @@ class App extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      currentRestaurant: this.props.currentRestaurant,
-      nearbyRestaurants: this.props.nearbyRestaurants,
+      currentRestaurant: this.props.currentRestaurant || {},
+      nearbyRestaurants: this.props.nearbyRestaurants || [],
       checkID: true,
-      id: this.props.id,
+      id: this.props.id || undefined,
     };
   }
 
@@ -23,19 +23,19 @@ class App extends React.Component {
 
   _getData() {
     if ((this.state.id !== undefined) && (this.state.nearbyRestaurants.length === 0)) {
-      $.ajax({
-        url: `http://13.57.205.164:3004/api/restaurants/${this.state.id}/nearby`,
-        method: 'GET',
-        success: (data) => {
-          this.setState({
-            currentRestaurant: data[0],
-            nearbyRestaurants: data[1],
-          });
-        },
-        error: (err) => {
-          console.log('GET Error: ', err);
-        },
-      });
+      // $.ajax({
+      //   url: `http://13.57.205.164:3004/api/restaurants/${this.state.id}/nearby`,
+      //   method: 'GET',
+      //   success: (data) => {
+      //     this.setState({
+      //       currentRestaurant: data[0],
+      //       nearbyRestaurants: data[1],
+      //     });
+      //   },
+      //   error: (err) => {
+      //     console.log('GET Error: ', err);
+      //   },
+      // });
     } else {
       this.setState({
         checkID: false,
