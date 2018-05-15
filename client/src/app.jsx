@@ -7,18 +7,18 @@ import Footer from './components/Footer.jsx';
 class App extends React.Component {
   constructor(props) {
     super(props);
-    // this.state = {
-    //   currentRestaurant: this.props.currentRestaurant || {},
-    //   nearbyRestaurants: this.props.nearbyRestaurants || [],
-    //   checkID: true,
-    //   id: this.props.id || undefined,
-    // };
+    this.state = {
+      currentRestaurant: this.props.currentRestaurant,
+      nearbyRestaurants: this.props.nearbyRestaurants,
+      checkID: true,
+      id: this.props.id,
+    };
   }
 
   componentDidMount() {
-    // if (typeof window !== 'undefined') {
-    //   this.setState({ id: window.location.href.split('/')[4] }, this._getData);
-    // }
+    if (typeof window !== 'undefined') {
+      this.setState({ id: window.location.href.split('/')[4] }, this._getData);
+    }
   }
 
   _getData() {
