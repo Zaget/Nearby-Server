@@ -8,6 +8,5 @@ export default App;
 if (typeof window !== 'undefined') {
   axios.get(`http://13.57.205.164:3004/api/restaurants/${window.location.href.split('/')[4]}/nearby`)
   .then(data => {
-    let info = {currentRestaurant:data[0], nearbyRestaurants:data[1], id:window.location.href.split('/')[4]}
   }
 }
