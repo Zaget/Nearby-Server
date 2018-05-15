@@ -6,5 +6,5 @@ import axios from 'axios';
 export default App;
 
 if (typeof window !== 'undefined') {
-  axios.get(`http://13.57.205.164:3004/api/restaurants/${window.location.href.split('/')[4]}/nearby`, (data => {}))
+  axios.get("http://13.57.205.164:3004/api/restaurants/" + window.location.href.split('/')[4] + "/nearby", (data => {}))
 }
