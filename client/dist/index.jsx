@@ -7,7 +7,7 @@ export default App;
 
 if (typeof window !== 'undefined') {
   $.ajax({
-    url: `http://13.57.205.164:3004/api/restaurants/${this.state.id}/nearby`,
+    url: 'http://13.57.205.164:3004/api/restaurants/'+ 29358 +'/nearby',
     method: 'GET',
     success: (data) => {
       hydrate(React.createElement(App, ), document.getElementById('nearby-app'));  
