@@ -25,6 +25,10 @@ app.use('/restaurants', express.static(path.join(__dirname, '/../../client/dist'
 
 app.get('/api/restaurants/:id/nearby', query);
 
+app.get('/loaderio-6982d222b8d1cd8a25ba56448c7b375d', (req, res) => {
+  res.send('loaderio-6982d222b8d1cd8a25ba56448c7b375d');
+})
+
 app.get('/restaurants/:id', (req, res) => {
   res.send(`
     <!DOCTYPE html>
