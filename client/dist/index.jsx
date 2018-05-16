@@ -6,5 +6,6 @@ export default App;
 
 if (typeof window !== 'undefined') {
   const fillerData = {name:'', google_rating: 0, zagat_rating: 0, photos:[], neighborhood:'', price_level:1, types: ''}
-  hydrate(React.createElement(App, {currentRestaurant:fillerData, nearbyRestaurants:[fillerData, fillerData, fillerData, fillerData, fillerData, fillerData]}), document.getElementById('nearby-app'));
+  const info = {currentRestaurant:fillerData, nearbyRestaurants:[fillerData, fillerData, fillerData, fillerData, fillerData, fillerData]};
+  hydrate(React.createElement(App, info), document.getElementById('nearby-app'));
 }
