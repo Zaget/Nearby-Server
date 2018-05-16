@@ -6,6 +6,6 @@ client/dist/bundle.js
 yarn.lock
 *.csv
 coverage/
-newrelic.js
 newrelic_agent.log
 tests/artillery.yml
+newRelicKey.js
