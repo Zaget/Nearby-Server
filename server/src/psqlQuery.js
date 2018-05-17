@@ -24,6 +24,7 @@ const checkRedis = (id) => {
         } else {
           return false
         }
+      });
     });
   });
 }
