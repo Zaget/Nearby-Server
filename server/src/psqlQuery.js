@@ -7,6 +7,7 @@ const client = new Pool({ database: 'zaget', host: 'zaget.cvjywnma6qrl.us-west-1
 
 const psqlQuery = (req, res) => {
   const placeId = parseInt(req.params.id, 10);
+  console.log(placeId);
   redisClient.get(placeId, (err, reply) => {
     data = JSON.parse(reply);
     if (data) {
