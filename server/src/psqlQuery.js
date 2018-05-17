@@ -18,7 +18,7 @@ const getData = (req, res) => {
 const checkRedis = (id) => {
   return redisClient.exists(id, function(err, reply) {
     if (reply === 1) {
-      return true; 
+      return false; 
     } else {
       return false
     }
