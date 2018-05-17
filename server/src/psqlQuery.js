@@ -8,7 +8,7 @@ const client = new Pool({ database: 'zaget', host: 'zaget.cvjywnma6qrl.us-west-1
 
 const getData = (req, res) => {
   const placeId = parseInt(req.params.id, 10);
-  checkRedis(placeId)
+  checkRedis(placeId, res);
 }
 
 const checkRedis = (id, res) => {
