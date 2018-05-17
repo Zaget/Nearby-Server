@@ -60,7 +60,7 @@ const queryPsql = (id, res) => {
           addToRedis(id, dataStr);
           res.send([current, nearby]);
         }
-      }
+      })
     });
   })
 }
