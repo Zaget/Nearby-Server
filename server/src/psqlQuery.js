@@ -17,12 +17,7 @@ const getData = (req, res) => {
 }
 
 const checkRedis = (id) => {
-  redisClient.exists(id, function(err, reply) {
-    if (reply === 1) {
-      return false; 
-    } else {
-      return false
-    }
+  return redisClient.exists(id, function(err, reply) {
   });
 }
 
