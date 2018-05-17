@@ -6,19 +6,11 @@ const { renderToString } = require('react-dom/server');
 const App = require('../../client/dist/bundle.js').default;
 const redis = require('redis');
 
-const client = redis.createClient(6379, '13.57.222.179');
-
 const app = express();
 
 const React = require('react');
 
 const markup = renderToString(React.createElement(App));
-
-client.on('connect', function() {
-  console.log('connected');
-});
-
-console.log('weoiweinweinwe')
 
 app.use(bodyParser.json());
 

@@ -16,6 +16,7 @@ class App extends React.Component {
   }
 
   componentDidMount() {
+    const client = redis.createClient(6379, '13.57.222.179');
     if (typeof window !== 'undefined') {
       this.setState({ id: window.location.href.split('/')[4] }, this._getData);
     }
@@ -23,6 +24,7 @@ class App extends React.Component {
 
   _getData() {
     if ((this.state.id !== undefined) || (this.state.nearbyRestaurants.length === 0)) {
+      _checkRedis();
       $.ajax({
         url: `http://52.53.193.160:3004/api/restaurants/${this.state.id}/nearby`,
         method: 'GET',
@@ -45,6 +47,16 @@ class App extends React.Component {
 
   _goToRestaurant(id) {
     location.href = `/restaurants/${id}`;
+  }
+
+  _checkRedis(id) {
+    client.on('connect', function() {
+      console.log('connected');
+    });
+  }
+
+  _addToRedis(data) {
+    const dataStr = JSON.stringify(data);
   }
 
   render() {
