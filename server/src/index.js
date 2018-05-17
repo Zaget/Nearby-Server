@@ -6,15 +6,17 @@ const { renderToString } = require('react-dom/server');
 const App = require('../../client/dist/bundle.js').default;
 const redis = require('redis');
 const cors = require('cors');
+const React = require('react');
 
 const redisClient = redis.createClient(6379, '13.57.222.179');
 
 const app = express();
 
-const React = require('react');
-const markup = renderToString(React.createElement(App));
+const fillerData = {name:'', google_rating: 0, zagat_rating: 0, photos:[], neighborhood:'', price_level:1, types: ''};
 
-app.use(cors())
+const info = {currentRestaurant:fillerData, nearbyRestaurants:[fillerData, fillerData, fillerData, fillerData, fillerData, fillerData]}; 
+
+const markup = renderToString(React.createElement(App, info));
 
 app.use(bodyParser.json());
 
