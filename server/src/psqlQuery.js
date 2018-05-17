@@ -8,22 +8,15 @@ const client = new Pool({ database: 'zaget', host: 'zaget.cvjywnma6qrl.us-west-1
 
 const getData = (req, res) => {
   const placeId = parseInt(req.params.id, 10);
-  console.log(checkRedis(placeId));
-  if (checkRedis(placeId)) {
-    queryRedis(placeId, res);
-  } else {
-    queryPsql(placeId, res);
-  }
+  checkRedis(placeId)
 }
 
-const checkRedis = (id) => {
-  redisClient.exists('bullshit', function(err, reply) {
+const checkRedis = (id, res) => {
+  redisClient.exists(id, function(err, reply) {
     if (reply === 1) {
-      console.log('true')
-      return false; 
+      queryRedis(placeId, res);
     } else {
-      console.log('false')
-      return false
+      queryPsql(placeId, res);
     }
   });
 }
