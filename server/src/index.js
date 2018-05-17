@@ -18,6 +18,8 @@ client.on('connect', function() {
   console.log('connected');
 });
 
+console.log('weoiweinweinwe')
+
 app.use(bodyParser.json());
 
 app.use((req, res, next) => {
