@@ -30,7 +30,7 @@ const queryRedis = (id, res) => {
   console.log('redis')
   redisClient.get(id, (err, reply) => {
     data = JSON.parse(reply);
-    console.log(data);
+    console.log('data:',data);
     res.send(data);
   })
 }
