@@ -4,6 +4,9 @@ const path = require('path');
 const query = require('./psqlQuery.js');
 const { renderToString } = require('react-dom/server');
 const App = require('../../client/dist/bundle.js').default;
+const redis = require('redis');
+
+const redisClient = redis.createClient(6379, '13.57.222.179');
 
 const app = express();
 
@@ -36,7 +39,7 @@ app.get('/restaurants/:id', (req, res) => {
         <link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400" rel="stylesheet">
         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
         <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.10/css/all.css" integrity="sha384-+d0P83n9kaQMCwj8F4RJB66tzIwOKmrdb46+porD/OvrJ+37WqIM7UoBtwHO6Nlg" crossorigin="anonymous">
-        <link rel="stylesheet" href="http://52.53.193.160:3004/restaurants/styles.css">
+        <link rel="stylesheet" href="http://Nearby-1830870841.us-west-1.elb.amazonaws.com/restaurants/styles.css">
       </head>
       <body>
         <div id="nearby-app">${markup}</div>
