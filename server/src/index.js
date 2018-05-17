@@ -5,6 +5,7 @@ const query = require('./psqlQuery.js');
 const { renderToString } = require('react-dom/server');
 const App = require('../../client/dist/bundle.js').default;
 const redis = require('redis');
+const cors = require('cors');
 
 const redisClient = redis.createClient(6379, '13.57.222.179');
 
@@ -12,6 +13,8 @@ const app = express();
 
 const React = require('react');
 const markup = renderToString(React.createElement(App));
+
+app.use(cors())
 
 app.use(bodyParser.json());
 
