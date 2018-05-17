@@ -6,16 +6,34 @@ const redisClient = redis.createClient(6379, '13.57.222.179');
 
 const client = new Pool({ database: 'zaget', host: 'zaget.cvjywnma6qrl.us-west-1.rds.amazonaws.com', user: 'dmytromarchenko1998', password: 'Tiger101998!' });
 
-const checkRedis = (req, res) => {
-  const placeId = parseInt(req.params.id, 10);
-  redisClient.get(placeId, (err, reply) => {
-    if ((reply !== undefined) && (reply !== null)) {
+const queryRedis = (id, res) => {
+  nr.startSegment('queryRedis', true, () => {
+    redisClient.get(id, (err, reply) => {
       data = JSON.parse(reply);
       res.send(data);
-    } else {
-      queryPsql(placeId, res);
-    }
-  })
+    })
+  });
+}
+
+const checkRedis = (id) => {
+  nr.startSegment('checkRedis', true, () => {
+    return client.exists(id, function(err, reply) {
+      if (reply === 1) {
+        return true; 
+      } else {
+        return false
+      }
+    });
+  });
+}
+
+const getData = (req, res) => {
+  const placeId = parseInt(req.params.id, 10);
+  if (checkRedis(placeId)) {
+    queryRedis(placeId, res);
+  } else {
+    queryPsql(placeId, res);
+  }
 }
 
 const addToRedis = (id, data) => {
@@ -51,4 +69,4 @@ const queryPsql = (id, res) => {
   })
 }
 
-module.exports = checkRedis;
+module.exports = getData;
