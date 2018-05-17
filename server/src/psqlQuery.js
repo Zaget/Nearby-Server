@@ -17,7 +17,7 @@ const queryRedis = (id, res) => {
 
 const checkRedis = (id) => {
   nr.startSegment('checkRedis', true, () => {
-    return client.exists(id, function(err, reply) {
+    return redisClient.exists(id, function(err, reply) {
       if (reply === 1) {
         return true; 
       } else {
