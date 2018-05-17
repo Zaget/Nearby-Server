@@ -40,9 +40,11 @@ const checkRedis = (req, res) => {
   const placeId = parseInt(req.params.id, 10);
   redisClient.get(placeId, (err, reply) => {
     if ((reply !== undefined) && (reply !== null)) {
+      console.log('redis')
       data = JSON.parse(reply);
       res.send(data);
     } else {
+      console.log('psql')
       queryPsql(placeId, res);
     }
   })
