@@ -8,7 +8,6 @@ const App = require('../../client/dist/bundle.js').default;
 const app = express();
 
 const React = require('react');
-
 const markup = renderToString(React.createElement(App));
 
 app.use(bodyParser.json());
@@ -18,10 +17,6 @@ app.use((req, res, next) => {
   res.header('Access-Control-Allow-Headers', 'Origin, X-Requested-With, Content-Type, Accept');
   next();
 });
-
-app.get('/loaderio-e5decec6f900b7fd867ad6eaaa03b82d/', (req, res) => {
-  res.send('loaderio-e5decec6f900b7fd867ad6eaaa03b82d');
-})
 
 app.use('/restaurants', express.static(path.join(__dirname, '/../../client/dist')));
 
