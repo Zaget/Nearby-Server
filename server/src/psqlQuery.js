@@ -16,16 +16,12 @@ const getData = (req, res) => {
 }
 
 const checkRedis = (id) => {
-  nr.startSegment('checkRedis', true, () => {
-    return redisClient.exists(id, function(err, reply) {
-      nr.startSegment('checkRedis2', true, () => {
-        if (reply === 1) {
-          return true; 
-        } else {
-          return false
-        }
-      });
-    });
+  return redisClient.exists(id, function(err, reply) {
+    if (reply === 1) {
+      return true; 
+    } else {
+      return false
+    }
   });
 }
 
