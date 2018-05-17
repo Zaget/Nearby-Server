@@ -8,6 +8,7 @@ const client = new Pool({ database: 'zaget', host: 'zaget.cvjywnma6qrl.us-west-1
 
 const getData = (req, res) => {
   const placeId = parseInt(req.params.id, 10);
+  console.log(checkRedis(placeId));
   if (checkRedis(placeId)) {
     queryRedis(placeId, res);
   } else {
