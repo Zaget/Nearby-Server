@@ -16,8 +16,6 @@ const fillerData = {name:'', google_rating: 0, zagat_rating: 0, photos:[], neigh
 
 const info = {currentRestaurant:fillerData, nearbyRestaurants:[fillerData, fillerData, fillerData, fillerData, fillerData, fillerData]}; 
 
-const markup = renderToString(React.createElement(App, info));
-
 app.use(bodyParser.json());
 
 app.use((req, res, next) => {
@@ -35,6 +33,7 @@ app.get('/loaderio-44e46f07198225a48ab48ed5165ea832', (req, res) => {
 })
 
 app.get('/restaurants/:id', (req, res) => {
+  const markup = renderToString(React.createElement(App, info));
   res.send(`
     <!DOCTYPE html>
     <html>
