@@ -1,6 +1,5 @@
 const { Pool } = require('pg');
 const redis = require('redis');
-const nr = require('newrelic');
 
 const redisClient = redis.createClient(6379, '13.57.222.179');
 
@@ -17,22 +16,18 @@ const getData = (req, res) => {
 
 const checkRedis = (id) => {
   return redisClient.exists(id, function(err, reply) {
-    nr.startSegment('checkRedis2', true, () => {
-      if (reply === 1) {
-        return true; 
-      } else {
-        return false
-      }
-    });
+    if (reply === 1) {
+      return true; 
+    } else {
+      return false
+    }
   });
 }
 
 const queryRedis = (id, res) => {
   redisClient.get(id, (err, reply) => {
-    nr.startSegment('queryRedis2', true, () => {
-      data = JSON.parse(reply);
-      res.send(data);
-    });
+    data = JSON.parse(reply);
+    res.send(data);
   })
 }
 
