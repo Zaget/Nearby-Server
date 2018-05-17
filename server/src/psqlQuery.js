@@ -10,6 +10,7 @@ const psqlQuery = (req, res) => {
   redisClient.get(id, (err, reply) => {
     data = JSON.parse(reply);
     if (data) {
+      console.log('redis')
       res.send(data);
     } else {      
       client.query(`select * from nearby inner join businesses on ${placeId} = businesses.place_id or nearby.nearby1 = businesses.place_id or nearby.nearby2 = businesses.place_id or nearby.nearby3 = businesses.place_id or nearby.nearby4 = businesses.place_id or nearby.nearby5 = businesses.place_id or nearby.nearby6 = businesses.place_id where nearby.place_id = ${placeId}`, (err, data) => {
