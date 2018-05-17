@@ -3,6 +3,7 @@ import React from 'react';
 import RestaurantCard from './components/RestaurantCard.jsx';
 import '../dist/styles.css';
 import Footer from './components/Footer.jsx';
+import redis from 'redis';
 
 class App extends React.Component {
   constructor(props) {
