@@ -29,6 +29,7 @@ const queryRedis = (id, res) => {
   console.log('redis')
   redisClient.get(id, (err, reply) => {
     data = JSON.parse(reply);
+    console.log(data);
     res.send(data);
   })
 }
