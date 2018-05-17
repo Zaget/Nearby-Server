@@ -7,11 +7,9 @@ const client = new Pool({ database: 'zaget', host: 'zaget.cvjywnma6qrl.us-west-1
 
 const psqlQuery = (req, res) => {
   const placeId = parseInt(req.params.id, 10);
-  console.log(placeId);
   redisClient.get(placeId, (err, reply) => {
     data = JSON.parse(reply);
     if (data) {
-      console.log('redis')
       res.send(data);
     } else {      
       client.query(`select * from nearby inner join businesses on ${placeId} = businesses.place_id or nearby.nearby1 = businesses.place_id or nearby.nearby2 = businesses.place_id or nearby.nearby3 = businesses.place_id or nearby.nearby4 = businesses.place_id or nearby.nearby5 = businesses.place_id or nearby.nearby6 = businesses.place_id where nearby.place_id = ${placeId}`, (err, data) => {
