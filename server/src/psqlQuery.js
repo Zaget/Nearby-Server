@@ -17,10 +17,12 @@ const getData = (req, res) => {
 }
 
 const checkRedis = (id) => {
-  return redisClient.exists('bullshit', function(err, reply) {
+  redisClient.exists('bullshit', function(err, reply) {
     if (reply === 1) {
+      console.log('true')
       return false; 
     } else {
+      console.log('false')
       return false
     }
   });
