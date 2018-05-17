@@ -46,7 +46,6 @@ class RestaurantDetails extends React.Component {
         </div>
 
         <div className="restaurant-details-description">
-          {faker.lorem.sentence()}
         </div>        
 
 			</div>
