@@ -2,17 +2,21 @@ const { Pool } = require('pg');
 const redis = require('redis');
 const nr = require('newrelic');
 
-const redisClient = redis.createClient(6379, '13.57.222.179');
+nr.startSegment('startRedis', true, () => {
+  const redisClient = redis.createClient(6379, '13.57.222.179');
+});
 
-const client = new Pool({ database: 'zaget', host: 'zaget.cvjywnma6qrl.us-west-1.rds.amazonaws.com', user: 'dmytromarchenko1998', password: 'Tiger101998!' });
+nr.startSegment('startPsql', true, () => {
+  const client = new Pool({ database: 'zaget', host: 'zaget.cvjywnma6qrl.us-west-1.rds.amazonaws.com', user: 'dmytromarchenko1998', password: 'Tiger101998!' });
+});
 
-const queryRedis = (id, res) => {
-  nr.startSegment('queryRedis', true, () => {
-    redisClient.get(id, (err, reply) => {
-      data = JSON.parse(reply);
-      res.send(data);
-    })
-  });
+const getData = (req, res) => {
+  const placeId = parseInt(req.params.id, 10);
+  if (checkRedis(placeId)) {
+    queryRedis(placeId, res);
+  } else {
+    queryPsql(placeId, res);
+  }
 }
 
 const checkRedis = (id) => {
@@ -27,19 +31,13 @@ const checkRedis = (id) => {
   });
 }
 
-const getData = (req, res) => {
-  const placeId = parseInt(req.params.id, 10);
-  if (checkRedis(placeId)) {
-    queryRedis(placeId, res);
-  } else {
-    queryPsql(placeId, res);
-  }
-}
-
-const addToRedis = (id, data) => {
-  nr.startSegment('addToRedis', true, () => {
-    redisClient.set(id, data);
-  })
+const queryRedis = (id, res) => {
+  nr.startSegment('queryRedis', true, () => {
+    redisClient.get(id, (err, reply) => {
+      data = JSON.parse(reply);
+      res.send(data);
+    })
+  });
 }
 
 const queryPsql = (id, res) => {
@@ -66,6 +64,12 @@ const queryPsql = (id, res) => {
         res.send([current, nearby]);
       }
     });
+  })
+}
+
+const addToRedis = (id, data) => {
+  nr.startSegment('addToRedis', true, () => {
+    redisClient.set(id, data);
   })
 }
 
