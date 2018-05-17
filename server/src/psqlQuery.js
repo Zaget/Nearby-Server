@@ -37,7 +37,7 @@ const client = new Pool({ database: 'zaget', host: 'zaget.cvjywnma6qrl.us-west-1
 // };
 
 const checkRedis = (req, res) => {
-  const placeId = req.params.id;
+  const placeId = parseInt(req.params.id, 10);
   redisClient.get(placeId, (err, reply) => {
     if ((reply !== undefined) && (reply !== null)) {
       data = JSON.parse(reply);
