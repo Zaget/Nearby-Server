@@ -40,21 +40,22 @@ const checkRedis = (req, res) => {
   const placeId = parseInt(req.params.id, 10);
   redisClient.get(placeId, (err, reply) => {
     if ((reply !== undefined) && (reply !== null)) {
-      console.log('redis')
+      console.log('redis');
       data = JSON.parse(reply);
       res.send(data);
     } else {
-      console.log('psql')
       queryPsql(placeId, res);
     }
   })
 }
 
 const addToRedis = (id, data) => {
+  console.log('added to redis')
   redisClient.set(id, data);
 }
 
 const queryPsql = (id, res) => {
+  console.log('psql');
   client.query(`select * from nearby inner join businesses on ${id} = businesses.place_id or nearby.nearby1 = businesses.place_id or nearby.nearby2 = businesses.place_id or nearby.nearby3 = businesses.place_id or nearby.nearby4 = businesses.place_id or nearby.nearby5 = businesses.place_id or nearby.nearby6 = businesses.place_id where nearby.place_id = ${id}`, (err, data) => {
     if (err) {
       res.status(500);
