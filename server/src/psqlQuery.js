@@ -14,9 +14,9 @@ const getData = (req, res) => {
 const checkRedis = (id, res) => {
   redisClient.exists(id, function(err, reply) {
     if (reply === 1) {
-      queryRedis(placeId, res);
+      queryRedis(id, res);
     } else {
-      queryPsql(placeId, res);
+      queryPsql(id, res);
     }
   });
 }
