@@ -16,47 +16,56 @@ const getData = (req, res) => {
 }
 
 const checkRedis = (id) => {
-  return redisClient.exists(id, function(err, reply) {
-    nr.startSegment('checkRedis2', true, () => {
-      if (reply === 1) {
-        return true; 
-      } else {
-        return false
-      }
+  nr.startSegment('checkRedis', true, () => {
+    return redisClient.exists(id, function(err, reply) {
+      nr.startSegment('checkRedis2', true, () => {
+        if (reply === 1) {
+          return true; 
+        } else {
+          return false
+        }
     });
   });
 }
 
 const queryRedis = (id, res) => {
-  redisClient.get(id, (err, reply) => {
-    nr.startSegment('queryRedis2', true, () => {
-      data = JSON.parse(reply);
-      res.send(data);
-    });
-  })
+  nr.startSegment('queryRedis', true, () => {
+    redisClient.get(id, (err, reply) => {
+      nr.startSegment('queryRedis2', true, () => {
+        data = JSON.parse(reply);
+        res.send(data);
+      });
+    })
+  });
 }
 
 const queryPsql = (id, res) => {
-  client.query(`select * from nearby inner join businesses on ${id} = businesses.place_id or nearby.nearby1 = businesses.place_id or nearby.nearby2 = businesses.place_id or nearby.nearby3 = businesses.place_id or nearby.nearby4 = businesses.place_id or nearby.nearby5 = businesses.place_id or nearby.nearby6 = businesses.place_id where nearby.place_id = ${id}`, (err, data) => {
-    if (err) {
-      res.status(500);
-      res.send('not a valid id');
-      console.log(err);
-    } else {
-      const nearby = [];
-      let current;
-      for (let i = 0; i < 7; i += 1) {
-        if (data.rows[i].place_id === id) {
-          current = data.rows[i];
+  nr.startSegment('queryPsql', true, () => {
+    client.query(`select * from nearby inner join businesses on ${id} = businesses.place_id or nearby.nearby1 = businesses.place_id or nearby.nearby2 = businesses.place_id or nearby.nearby3 = businesses.place_id or nearby.nearby4 = businesses.place_id or nearby.nearby5 = businesses.place_id or nearby.nearby6 = businesses.place_id where nearby.place_id = ${id}`, (err, data) => {
+      nr.startSegment('queryPsql2', true, () => {
+        if (err) {
+          res.status(500);
+          res.send('not a valid id');
+          console.log(err);
         } else {
-          nearby.push(data.rows[i]);
+          const nearby = [];
+          let current;
+          nr.startSegment('loop through response', true, () => {
+            for (let i = 0; i < 7; i += 1) {
+              if (data.rows[i].place_id === id) {
+                current = data.rows[i];
+              } else {
+                nearby.push(data.rows[i]);
+              }
+            }
+          });
+          const dataStr = JSON.stringify([current, nearby]);
+          addToRedis(id, dataStr);
+          res.send([current, nearby]);
         }
-      }
-      const dataStr = JSON.stringify([current, nearby]);
-      addToRedis(id, dataStr);
-      res.send([current, nearby]);
-    }
-  });
+      })
+    });
+  })
 }
 
 const addToRedis = (id, data) => {
