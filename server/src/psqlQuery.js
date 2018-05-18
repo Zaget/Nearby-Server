@@ -24,7 +24,7 @@ const psqlQuery = (req, res) => {
         }
         res.send([current, nearby]);
       }
-    })
+    // })
   })
 };
 
