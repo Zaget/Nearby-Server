@@ -41,6 +41,10 @@ app.get('/loaderio-44e46f07198225a48ab48ed5165ea832', (req, res) => {
   res.send('loaderio-44e46f07198225a48ab48ed5165ea832');
 })
 
+app.get('/loaderio-23424ee6559aac53337e3d93500838f6', (req, res) => {
+  res.send('loaderio-23424ee6559aac53337e3d93500838f6');
+})
+
 app.get('/restaurants/:id', (req, res) => {
   const markup = renderToString(React.createElement(App, info));
   res.send(`
