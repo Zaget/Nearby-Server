@@ -8,7 +8,7 @@ const redis = require('redis');
 const cors = require('cors');
 const React = require('react');
 
-const redisClient = redis.createClient(6379, '13.57.222.179');
+// const redisClient = redis.createClient(6379, '13.57.222.179');
 
 const app = express();
 
@@ -29,7 +29,7 @@ app.use('/restaurants', express.static(path.join(__dirname, '/../../client/dist'
 app.get('/api/restaurants/:id/nearby', query);
 
 app.get('/loaderio-84648857ff0fc5a3011e32bc5bd1b98f', (req, res) => {
-  res.send('loaderio-84648857ff0fc5a3011e32bc5bd1b98f');
+  res.send('loaderio-44e46f07198225a48ab48ed5165ea832');
 })
 
 app.get('/restaurants/:id', (req, res) => {
