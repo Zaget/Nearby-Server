@@ -14,7 +14,6 @@ const getData = (req, res) => {
 const checkRedis = (id, res) => {
   redisClient.exists(id, function(err, reply) {
     if (reply === 1) {
-      console.log('cache hit', id);
       queryRedis(id, res);
     } else {
       queryPsql(id, res);
@@ -30,7 +29,6 @@ const queryRedis = (id, res) => {
 }
 
 const queryPsql = (id, res) => {
-  console.log('psql');
   client.query(`select * from nearby inner join businesses on ${id} = businesses.place_id or nearby.nearby1 = businesses.place_id or nearby.nearby2 = businesses.place_id or nearby.nearby3 = businesses.place_id or nearby.nearby4 = businesses.place_id or nearby.nearby5 = businesses.place_id or nearby.nearby6 = businesses.place_id where nearby.place_id = ${id}`, (err, data) => {
     if (err) {
       res.status(500);
