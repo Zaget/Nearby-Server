@@ -4,7 +4,7 @@ const path = require('path');
 const query = require('./psqlQuery.js');
 const { renderToString } = require('react-dom/server');
 const App = require('../../client/dist/bundle.js').default;
-// const cors = require('cors');
+const cors = require('cors');
 const React = require('react');
 
 const app = express();
