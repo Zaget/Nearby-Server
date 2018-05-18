@@ -5,30 +5,27 @@ const client = new Pool({ database: 'zaget', host: 'zaget.cvjywnma6qrl.us-west-1
 const psqlQuery = (req, res) => {
   const placeId = parseInt(req.params.id, 10);
   // client.query(`select * from nearby inner join businesses on ${placeId} = businesses.place_id or nearby.nearby1 = businesses.place_id or nearby.nearby2 = businesses.place_id or nearby.nearby3 = businesses.place_id or nearby.nearby4 = businesses.place_id or nearby.nearby5 = businesses.place_id or nearby.nearby6 = businesses.place_id where nearby.place_id = ${placeId}`, (err, data) => {
-    client.query(`select * from nearby where place_id = ${placeId}`, (err, data) => {
-      const ids = Object.values(data.rows[0]);
-      console.log(`select * from businesses where place_id in (${ids[0]}, ${ids[1]}, ${ids[2]}, ${ids[3]}, ${ids[4]}, ${ids[5]}, ${ids[6]})`);
-      client.query(`select * from businesses where place_id in (${ids[0]}, ${ids[1]}, ${ids[2]}, ${ids[3]}, ${ids[4]}, ${ids[5]}, ${ids[6]})`, (err, data) => {
-        console.log(data);
-      })
+  client.query(`select * from nearby where place_id = ${placeId}`, (err, data) => {
+    const ids = Object.values(data.rows[0]);
+    client.query(`select * from businesses where place_id in (${ids[0]}, ${ids[1]}, ${ids[2]}, ${ids[3]}, ${ids[4]}, ${ids[5]}, ${ids[6]})`, (err, data) => {
+      if (err) {
+        res.status(500);
+        res.send('not a valid id');
+        console.log(err);
+      } else {
+        const nearby = [];
+        let current;
+        for (let i = 0; i < 7; i += 1) {
+          if (data.rows[i].place_id === placeId) {
+            current = data.rows[i];
+          } else {
+            nearby.push(data.rows[i]);
+          }
+        }
+        res.send([current, nearby]);
+      }
     })
-  //   if (err) {
-  //     res.status(500);
-  //     res.send('not a valid id');
-  //     console.log(err);
-  //   } else {
-  //     const nearby = [];
-  //     let current;
-  //     for (let i = 0; i < 7; i += 1) {
-  //       if (data.rows[i].place_id === placeId) {
-  //         current = data.rows[i];
-  //       } else {
-  //         nearby.push(data.rows[i]);
-  //       }
-  //     }
-  //     res.send([current, nearby]);
-  //   }
-  // });
+  })
 };
 
 module.exports = psqlQuery;
