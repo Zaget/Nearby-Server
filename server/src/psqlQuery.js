@@ -7,20 +7,16 @@ const redisClient = redis.createClient(6379, '13.57.222.179');
 
 const Query = (req, res) => {
   const placeId = parseInt(req.params.id, 10);
-  if (placeId < 100) {
-    redisClient.get(req.params.id, (err, reply) => {
-      if (reply === null) {
-        console.log('not cached', placeId)
-        psqlQuery(placeId, res);
-      } else {
-        console.log('cached', placeId)
-        const data = JSON.parse(reply);
-        res.send(data);
-      }
-    })
-  } else {
-    psqlQuery(placeId, res);
-  }
+  redisClient.get(req.params.id, (err, reply) => {
+    if (reply === null) {
+      console.log('not cached', placeId)
+      psqlQuery(placeId, res);
+    } else {
+      console.log('cached', placeId)
+      const data = JSON.parse(reply);
+      res.send(data);
+    }
+  })
 };
 
 const psqlQuery = (placeId, res) => {
