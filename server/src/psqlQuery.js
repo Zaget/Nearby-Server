@@ -14,6 +14,7 @@ const getData = (req, res) => {
 const checkRedis = (id, res) => {
   redisClient.exists(id, function(err, reply) {
     if (reply === 1) {
+      console.log('cache hit')
       queryRedis(id, res);
     } else {
       queryPsql(id, res);
