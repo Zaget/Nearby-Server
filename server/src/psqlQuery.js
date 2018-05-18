@@ -1,7 +1,7 @@
 const { Pool } = require('pg');
 const redis = require('redis');
 
-const redisClient = redis.createClient(6379, '13.57.222.179');
+// const redisClient = redis.createClient(6379, '13.57.222.179');
 
 const client = new Pool({ database: 'zaget', host: 'zaget.cvjywnma6qrl.us-west-1.rds.amazonaws.com', user: 'dmytromarchenko1998', password: 'Tiger101998!' });
 
@@ -56,7 +56,6 @@ const client = new Pool({ database: 'zaget', host: 'zaget.cvjywnma6qrl.us-west-1
 
 const getData = (req, res) => {
   const placeId = parseInt(req.params.id, 10);
-  redisClient.get(placeId, (err, reply) => {
     data = JSON.parse(reply);
     if (data) {
       res.send(data);
@@ -77,12 +76,10 @@ const getData = (req, res) => {
             }
           }
           const dataStr = JSON.stringify([current, nearby]);
-          redisClient.set(placeId, dataStr);
           res.send([current, nearby]);
         }
       });
     }
-  });
 };
 
 module.exports = getData;
