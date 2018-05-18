@@ -7,8 +7,8 @@ const redisClient = redis.createClient(6379, '13.57.222.179');
 
 const Query = (req, res) => {
   redisClient.get(req.params.id, (err, reply) => {
+    const placeId = parseInt(req.params.id, 10);
     if (reply === null) {
-      const placeId = parseInt(req.params.id, 10);
       console.log('not cached', placeId)
       psqlQuery(placeId, res);
     } else {
