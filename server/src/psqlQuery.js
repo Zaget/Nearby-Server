@@ -1,6 +1,5 @@
 const { Pool } = require('pg');
 const redis = require('redis');
-const nr = require('newrelic');
 
 const redisClient = redis.createClient(6379, '13.57.222.179');
 
