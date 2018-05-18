@@ -4,8 +4,8 @@ const path = require('path');
 const query = require('./psqlQuery.js');
 const { renderToString } = require('react-dom/server');
 const App = require('../../client/dist/bundle.js').default;
-const redis = require('redis');
-const cors = require('cors');
+// const redis = require('redis');
+// const cors = require('cors');
 const React = require('react');
 
 // const redisClient = redis.createClient(6379, '13.57.222.179');
