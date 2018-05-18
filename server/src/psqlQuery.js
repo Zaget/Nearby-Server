@@ -6,7 +6,8 @@ const psqlQuery = (req, res) => {
   const placeId = parseInt(req.params.id, 10);
   // client.query(`select * from nearby inner join businesses on ${placeId} = businesses.place_id or nearby.nearby1 = businesses.place_id or nearby.nearby2 = businesses.place_id or nearby.nearby3 = businesses.place_id or nearby.nearby4 = businesses.place_id or nearby.nearby5 = businesses.place_id or nearby.nearby6 = businesses.place_id where nearby.place_id = ${placeId}`, (err, data) => {
     client.query(`select * from nearby where place_id = ${placeId}`, (err, data) => {
-      console.log(data.rows);
+      console.log(Object.values(data.rows[0]));
+      // client.query(`select * from businesses where place_id in`)
     })
   //   if (err) {
   //     res.status(500);
