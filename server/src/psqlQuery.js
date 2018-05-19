@@ -55,4 +55,4 @@ const addRedis = (placeId, data) => {
   redisClient.set(idStr, dataStr);
 }
 
-module.exports = Query;
+module.exports = checkRedis;
