@@ -18,7 +18,7 @@
     ]
   },
   "scripts": {
-    "start": "node ./server/src/app.js",
+    "start": "node ./server/src/server.js",
     "server": "nodemon ./server/index.js",
     "seedMONGO": "mongoimport -d apateez-nearby -c restaurants --jsonArray --file generatedData2.json --numInsertionWorkers 32",
     "build": "webpack -w",
