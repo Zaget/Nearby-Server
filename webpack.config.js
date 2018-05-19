@@ -13,7 +13,6 @@ var browserConfig = {
     path: DIST_DIR,
     libraryTarget: "umd"
   },
-  externals: ['axios'],
   module : {
     loaders : [
       { test: /\.css$/, use: ['css-loader']},
