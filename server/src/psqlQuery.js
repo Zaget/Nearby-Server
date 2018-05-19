@@ -28,7 +28,7 @@ const psqlQuery = (placeId, res) => {
         res.send('not a valid id');
         console.log(err);
       } else {
-        var response = formatResponse(data);
+        var response = formatResponse(placeId, data);
         addRedis(placeId, response);
         res.send(response);
       }
