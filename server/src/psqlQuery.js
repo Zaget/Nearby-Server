@@ -51,7 +51,7 @@ const formatResponse = (placeId, data) => {
 
 const addRedis = (placeId, data) => {
   const idStr = JSON.stringify(placeId);
-  const dataStr = JSON.stringify([current, nearby]);
+  const dataStr = JSON.stringify(data);
   redisClient.set(idStr, dataStr);
 }
 
