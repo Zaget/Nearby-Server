@@ -30,6 +30,30 @@ app.use('/restaurants', express.static(path.join(__dirname, '/../../client/dist'
 
 app.get('/api/restaurants/:id/nearby', query);
 
+app.get('/loaderio-84648857ff0fc5a3011e32bc5bd1b98f', (req, res) => {
+  res.send('loaderio-84648857ff0fc5a3011e32bc5bd1b98f');
+});
+
+app.get('/loaderio-e6df56c0defeaa0ae25c31e7837f4457', (req, res) => {
+  res.send('loaderio-e6df56c0defeaa0ae25c31e7837f4457');
+});
+
+app.get('/loaderio-5ffdd3c75207ad296d4d88f7fbcb92ca', (req, res) => {
+  res.send('loaderio-5ffdd3c75207ad296d4d88f7fbcb92ca');
+});
+
+app.get('/loaderio-44e46f07198225a48ab48ed5165ea832', (req, res) => {
+  res.send('loaderio-44e46f07198225a48ab48ed5165ea832');
+});
+
+app.get('/loaderio-23424ee6559aac53337e3d93500838f6', (req, res) => {
+  res.send('loaderio-23424ee6559aac53337e3d93500838f6');
+});
+
+app.get('/loaderio-09e9734e71fc5f4cd23b0acdd6142942', (req, res) => {
+  res.send('loaderio-09e9734e71fc5f4cd23b0acdd6142942');
+});
+
 app.get('/restaurants/:id', (req, res) => {
   const markup = renderToString(React.createElement(App, info));
   res.send(html(markup));
